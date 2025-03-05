@@ -1,0 +1,20 @@
+import pytest
+
+# Test qilinadigan matnlar
+alpha = "Checking the length & structure of the sentence."
+beta = "This sentence should fail the test"
+
+@pytest.fixture(params=[alpha, beta])
+def input_value(request):
+    return request.param
+
+# Matn uzunligini tekshirish
+def test_length(input_value):
+    words = input_value.split()
+    assert len(words) < 10, f"String contains {len(words)} words, which is too many"
+    assert len(input_value) < 50, f"String contains {len(input_value)} characters, which is too many"
+
+# Matn tuzilishini tekshirish
+def test_struc(input_value):
+    assert input_value[0].isupper(), "String does not start with a capital letter"
+    assert input_value.endswith("."), "String does not end with a period"
